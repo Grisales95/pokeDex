@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+@charset "UTF-8";
+
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container-login{
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100vh;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  backface-visibility: hidden;
+  background-position: fixed;
+  animation: slideBg 20s linear infinite 1s;
+  animation-timing-function: ease-in-out;
+  background-image: url(./img/wallpaper.jpg);
 }
 
-.App-link {
-  color: #61dafb;
+@keyframes  slideBg{
+  0% {
+    background-image: url("./img/wallpaper.jpg");
+  }
+
+  25% {
+    background-image: url("./img/wallpaper2.jpg");
+  }
+
+  50% {
+    background-image: url("./img/wallpaper3.jpg");
+  }
+
+  75%{
+    background-image: url("./img/wallpaper4.jpg");
+  }
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.container-logo {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
 }
+
+.container-logo img{
+  width: 30%;
+  margin-bottom: 100px;
+  padding-bottom: 50px;
+}
+
+.container-form span{
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.container-form .card{
+  background: rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+}
+
+.container-form .btn{
+  background: #FFCC01 ;
+  color: #fff;
+}
+
+
