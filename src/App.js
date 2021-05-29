@@ -1,19 +1,22 @@
 import './App.css';
 import { useState, useEffect } from "react"
 import Login from "./components/Login"
+import PokeDex from "./components/PokeDex"
+import SearchBox from  "./components/SearchBox"
 import axios from "axios"
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
 
 function App() {
 
   const [pokemons, setPokemons] = useState()
 
   useEffect(() => {
-      const getPokemon = async () => {
+      const getPokemonUrl = async () => {
 
         try{
 
         const getData = await axios(`https://pokeapi.co/api/v2/pokemon`)
-        setPokemons(getData.data);
+        setPokemons(getData.data.results);
   
       }catch(error){
 
@@ -21,15 +24,37 @@ function App() {
       }
   }
 
-  getPokemon()
+  getPokemonUrl()
 
 }, [])
 
-  console.log(pokemons?.results[2].name)
-
   return (
     <div className="App">
-      <Login />
+      <Router>
+              <Switch>
+                <Route path="/login">
+                    <Login />
+                </Route>
+              </Switch>
+              <Switch>
+                <Route path="/pokeDex">
+                  <div className="container">
+                    <div className="my-4 text-center">
+                      <SearchBox />
+                    </div>
+                    <div className="d-flex flex-wrap my-3 justify-content-center row">
+                    {pokemons ? (
+                      pokemons.map((poke) => (
+                        <PokeDex url={poke.url} key={poke.name} />     
+                    ))
+                    ) : (
+                      <h2 className="d-none">Pokemon</h2>
+                    )}
+                    </div>
+                  </div>
+                </Route>
+              </Switch>
+            </Router>
     </div>
   );
 }
