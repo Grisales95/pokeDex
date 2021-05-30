@@ -75,30 +75,30 @@ const spd ="../icons/spd.png"
   return (
     <div className="card py-1 me-3 my-2 text-center col-3" style={{ backgroundColor: `${color}` }}>
       <div>
-          <p className="text-end">#{pokemon.id}</p>
+          <p className="id-number">#{pokemon.id}</p>
           <h4>{pokemon.name}</h4>
       </div>
       <div className="card-body">
         <div className="card-img">
-           <img src={pokemon.sprites.other.dream_world.front_default} width="130px" height="130px" alt="pokemons"/> 
+           <img src={pokemon.sprites.other.dream_world.front_default} width="130px" height="130px" alt={pokemon.name}/> 
         </div>
         <div className="d-flex justify-content-center">
             <div className="icon-type me-3" style={{background:`${colorsType}`}}>
-              <img src={icon} />
+              <img src={icon} alt="element" />
             </div>
             <div className="icon-type" style={{background:`${colorsType2}`}}>
-                <img src={icon2} />
+                <img src={icon2} alt="element2"/>
             </div>
         </div>
       </div>
       <div className="row">
         <div className="col-6">
-          <p><img src={hp} style={{width:"25px", height:"25px"}}/> {pokemon.stats[0].base_stat}</p>
-          <p><img src={atk} style={{width:"25px",  height:"25px"}} />{pokemon.stats[1].base_stat}</p>
+          <p><img src={hp} style={{width:"25px", height:"25px"}} alt="heart"/> {pokemon.stats[0].base_stat}</p>
+          <p><img src={atk} style={{width:"25px",  height:"25px"}} alt="sword" />{pokemon.stats[1].base_stat}</p>
         </div>
         <div className="col-6">
-          <p><img src={def} style={{width:"25px",  height:"25px"}} /> {pokemon.stats[2].base_stat}</p>
-          <p><img src={spd} style={{width:"30px",  height:"30px"}} /> {pokemon.stats[3].base_stat}</p>
+          <p><img src={def} style={{width:"25px",  height:"25px"}} alt="shield"/> {pokemon.stats[2].base_stat}</p>
+          <p><img src={spd} style={{width:"30px",  height:"30px"}} alt="thunder"/> {pokemon.stats[3].base_stat}</p>
         </div>
       </div>
     </div>

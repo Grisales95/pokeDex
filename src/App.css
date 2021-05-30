@@ -77,6 +77,12 @@
 
 .card-img img{
   margin-top: 10px;
+  transition: 200ms all;
+}
+
+.card-img img:hover{
+  filter: saturate(200%);
+  transform: scale(1.1);
 }
 
 .card-img{
@@ -119,7 +125,21 @@
   color: #fff;
 }
 
-.container-main{
+.id-number{
+  width: 38px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  padding: 0 2px;
 }
 
+.poke-api-logo{
+  text-align: center;
+  max-width: 500px;
+  margin: auto;
+  margin-bottom: 10px;
+}
 
+.poke-api-logo img{
+  width: 100%;
+}
