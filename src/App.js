@@ -38,11 +38,12 @@ function App() {
               </Switch>
               <Switch>
                 <Route path="/pokeDex">
-                  <div className="container">
-                    <div className="my-4 text-center">
+                  <div className="container-main">
+                    <div className="container">
+                    <div className="py-4 text-center">
                       <SearchBox />
                     </div>
-                    <div className="d-flex flex-wrap my-3 justify-content-center row">
+                    <div className="d-flex flex-wrap py-3 justify-content-center row">
                     {pokemons ? (
                       pokemons.map((poke) => (
                         <PokeDex url={poke.url} key={poke.name} />     
@@ -52,6 +53,7 @@ function App() {
                     )}
                     </div>
                   </div>
+                    </div> 
                 </Route>
               </Switch>
             </Router>
