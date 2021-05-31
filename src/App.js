@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import Login from "./components/Login"
 import PokeDex from "./components/PokeDex"
 import SearchBox from  "./components/SearchBox"
+import ByName from "./components/ByName"
 import axios from "axios"
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
 
@@ -12,6 +13,15 @@ function App() {
 
   const [type,setType] = useState("")
 
+  const [name, setName] = useState("")
+
+  const [total, setTotal] = useState("")
+
+  const [A,setA] = useState(0)
+
+  const [B, setB] = useState(8)
+
+
   useEffect(() => {
      if(type){
       const getPokemonUrl = async () => {
@@ -19,7 +29,8 @@ function App() {
         try{
 
         const getData = await axios(`https://pokeapi.co/api/v2/type/${type}`)
-        setPokemons(getData.data.pokemon.slice(0, 8));
+        setTotal(getData.data.pokemon)
+        setPokemons(getData.data.pokemon.slice(A, B));
   
       }catch(error){
 
@@ -29,29 +40,42 @@ function App() {
      getPokemonUrl()
   }
 
-}, [type])
+}, [type, A, B])
 
-const colorBackground = {
-  fairy:"#EE90E6",
-  dark:"#595761",
-  dragon:"#0C69C8",
-  ice:"#75D0C1",
-  psychic:"#FA8581",
-  electric:"#F2D94E",
-  grass:"#5FBD58",
-  water:"#539DDF",
-  fire:"#FBA54C",
-  steel:"#5695A3",
-  ghost:"#5F6DBC",
-  bug:"#92BC2C",
-  rock:"#C9BB8A",
-  ground:"#DA7C4D",
-  poison:"#B763CF",
-  flying:"#A1BBEC",
-  fighting:"#D3425F",
-  normal:"#A0A29F"
-}
 
+const handleNext = () => {
+  setA(A + 10);
+  setB(B + 10);
+};
+
+const handlePrev = () => {
+  setA(A - 10);
+  setB(B - 10);
+};
+
+const [pokemonN,setPokemonN] = useState("")
+
+useEffect(()=>{
+  if(name){
+
+   const getPokemonByName = async () => {
+    
+    try{
+
+      const getData = await axios(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      setPokemonN(getData.data)
+
+    }catch(error){
+
+      console.log(error)
+    }
+   }
+   getPokemonByName()
+
+  }
+},[name])
+
+ 
 
   return (
     <div className="App">
@@ -63,12 +87,13 @@ const colorBackground = {
               </Switch>
               <Switch>
                 <Route path="/pokeDex">
-                  <div className="container-main" style={{background:{colorBackground}}}>
+                  <div className="container-main">
                     <div className="container">
                     <div className="py-4 text-center">
-                      <SearchBox handleSearch={setType} />
+                      <SearchBox handleSearch={setType} setName={setName} />
                     </div>
                     <div className="d-flex flex-wrap py-3 justify-content-center row">
+                        <ByName pokemon = {pokemonN} />
                     {pokemons ? (
                       pokemons.map((poke) => (
                         <PokeDex url={poke.pokemon.url} key={poke.name} />     
@@ -77,6 +102,13 @@ const colorBackground = {
                       <h2 className="d-none">Pokemon</h2>
                     )}
                     </div>
+                    <div className="d-flex justify-content-center my-3">
+                      {A !== 0 && <button className = "btn btn-danger mx-2" onClick={handlePrev}>atras</button>}
+
+                      {B <= total && (
+                    <button className = "btn btn-primary" onClick={handleNext}>siguiente</button>
+                )}
+            </div>
                   </div>
                     </div> 
                 </Route>

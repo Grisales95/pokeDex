@@ -126,7 +126,7 @@
 }
 
 .id-number{
-  width: 38px;
+  width: 50px;
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.2);
   font-weight: 600;
@@ -143,3 +143,4 @@
 .poke-api-logo img{
   width: 100%;
 }
+

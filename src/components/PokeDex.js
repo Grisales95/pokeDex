@@ -20,6 +20,7 @@ const PokeDex = ({url}) => {
     return null
   }
 
+
   const colors = {
     fairy: "#f6ccd5",
     dark: "#b7aba3",
