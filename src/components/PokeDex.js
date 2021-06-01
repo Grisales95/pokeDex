@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect} from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 const PokeDex = ({url}) => {
 
@@ -74,7 +75,7 @@ const hp = "../icons/hp.png"
 const def = "../icons/def.png"
 const spd ="../icons/spd.png"
   return (
-    <div className="card py-1 me-3 my-2 text-center col-3" style={{ backgroundColor: `${color}` }}>
+    <div className="card py-1 mx-3 my-2 text-center col-3" style={{ backgroundColor: `${color}` }}>
       <div>
           <p className="id-number">#{pokemon.id}</p>
           <h4>{pokemon.name}</h4>
@@ -84,12 +85,15 @@ const spd ="../icons/spd.png"
            <img src={pokemon.sprites.other.dream_world.front_default} width="130px" height="130px" alt={pokemon.name}/> 
         </div>
         <div className="d-flex justify-content-center">
-            <div className="icon-type me-3" style={{background:`${colorsType}`}}>
+            <div className="icon-type me-1" style={{background:`${colorsType}`}}>
               <img src={icon} alt="element" />
             </div>
-            <div className="icon-type" style={{background:`${colorsType2}`}}>
-                <img src={icon2} alt="element2"/>
-            </div>
+            {
+              pokemon.types[1] &&
+              <div className="icon-type" style={{background:`${colorsType2}`}}>
+              <img src={icon2} alt="element2"/>
+              </div>
+            }
         </div>
       </div>
       <div className="row">

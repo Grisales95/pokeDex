@@ -6,6 +6,16 @@ const SearchBox = ({handleSearch, setName}) => {
   const [valueType, setValueType] = useState("fire")
   const [valueName, setValueName] = useState()
 
+  const prevent = (e)=>{
+    e.preventDefault()
+  }
+
+const reset = () => {
+  setName(valueName)
+  setValueName("")
+  handleSearch("")
+}
+
   const pokeApiLogo = "../icons/pokeapi.png"
   return (
     <div className="container-search card p-3 py-4 text-start">
@@ -13,7 +23,7 @@ const SearchBox = ({handleSearch, setName}) => {
           <img src={pokeApiLogo} alt="pokeApi" /> 
         </div>
         <label htmlFor="type" className="my-2" id="typ">Search Pokemon By Type</label>
-         <select className="form-control" name ="type" id="typ" onChange = {e=>setValueType(e.target.value)}>
+         <select className="form-control" name ="type" id="typ" onChange = {e=>setValueType(e.target.value)- reset} value={valueType}>
           <option value="fire">Fire</option>
           <option value="water">Water</option>
           <option value="normal">Normal</option>
@@ -33,11 +43,11 @@ const SearchBox = ({handleSearch, setName}) => {
           <option value="dark">Dark</option>
           </select>
           <button  className = "btn btn-primary mt-2" onClick={()=>handleSearch(valueType)}>Search</button>
-        <form>
-            <label htmlFor="name" className="my-2">Search Pokemon By Name</label>
-            <input type="text" className="form-control mb-2" id="name" onChange = {e=>setValueName(e.target.value)} />
+        <form onSubmit={prevent}>
+            <label htmlFor="name" className="my-2">Search Pokemon By Name Or Number</label>
+            <input type="text" value ={valueName} className="form-control mb-2" id="name" onChange = {e=>setValueName(e.target.value)} />
           <div className="d-grid gap-2">
-            <button className="btn btn-primary" onClick={()=>setName(valueName)}>Search</button>
+            <button className="btn btn-primary" onClick={reset} >Search</button>
           </div>
         </form>
     </div>

@@ -5,21 +5,24 @@ import PokeDex from "./components/PokeDex"
 import SearchBox from  "./components/SearchBox"
 import ByName from "./components/ByName"
 import axios from "axios"
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import PokemonId from "./components/PokemonId"
+import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom"
 
 function App() {
 
-  const [pokemons, setPokemons] = useState()
+  const [pokemons, setPokemons] = useState("")
 
   const [type,setType] = useState("")
 
   const [name, setName] = useState("")
 
-  const [total, setTotal] = useState("")
+  const [data, setData] = useState("")
 
-  const [A,setA] = useState(0)
+  const [total,setTotal] = useState();
+  const [A,setA] = useState(0);
+  const [B, setB] = useState(4);
 
-  const [B, setB] = useState(8)
+
 
 
   useEffect(() => {
@@ -29,8 +32,8 @@ function App() {
         try{
 
         const getData = await axios(`https://pokeapi.co/api/v2/type/${type}`)
-        setTotal(getData.data.pokemon)
-        setPokemons(getData.data.pokemon.slice(A, B));
+        setPokemons(getData.data.pokemon.slice(0,4));
+    
   
       }catch(error){
 
@@ -40,8 +43,7 @@ function App() {
      getPokemonUrl()
   }
 
-}, [type, A, B])
-
+}, [type])
 
 const handleNext = () => {
   setA(A + 10);
@@ -52,6 +54,8 @@ const handlePrev = () => {
   setA(A - 10);
   setB(B - 10);
 };
+
+
 
 const [pokemonN,setPokemonN] = useState("")
 
@@ -75,7 +79,6 @@ useEffect(()=>{
   }
 },[name])
 
- 
 
   return (
     <div className="App">
@@ -102,15 +105,19 @@ useEffect(()=>{
                       <h2 className="d-none">Pokemon</h2>
                     )}
                     </div>
-                    <div className="d-flex justify-content-center my-3">
-                      {A !== 0 && <button className = "btn btn-danger mx-2" onClick={handlePrev}>atras</button>}
+                  </div>
+                  </div>
+                  <Link to path="/id">Go!</Link>
+                  <div className="d-flex justify-content-center my-3">
+                {A !== 0 && <button className = "btn btn-danger mx-2" onClick={handlePrev}>atras</button>}
 
-                      {B <= total && (
+                {B <= total && (
                     <button className = "btn btn-primary" onClick={handleNext}>siguiente</button>
                 )}
             </div>
-                  </div>
-                    </div> 
+                </Route>
+                <Route path="pokeDex/id">
+                  <PokemonId />
                 </Route>
               </Switch>
             </Router>
