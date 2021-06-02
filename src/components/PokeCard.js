@@ -1,7 +1,24 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
-function ByName({ pokemon }) {
+const PokeCard = ({ url }) => {
+  const [pokemon, setPokemon] = useState("");
+
+  useEffect(() => {
+    const getPokemon = async () => {
+      const data = await axios(url);
+      setPokemon(data.data);
+    };
+
+    getPokemon();
+  }, [url]);
+
+  if (!pokemon) {
+    return null;
+  }
+
   const colors = {
     fairy: "#f6ccd5",
     dark: "#b7aba3",
@@ -44,10 +61,6 @@ function ByName({ pokemon }) {
     normal: "#A0A29F",
   };
 
-  if (!pokemon) {
-    return null;
-  }
-
   const color = colors[pokemon.types[0]?.type.name];
   const icon = `../icons/${pokemon.types[0]?.type.name}.svg`;
   const icon2 = `../icons/${pokemon.types[1]?.type.name}.svg`;
@@ -58,10 +71,9 @@ function ByName({ pokemon }) {
   const hp = "../icons/hp.png";
   const def = "../icons/def.png";
   const spd = "../icons/spd.png";
-
   return (
     <div
-      className="card py-1 me-3 my-2 text-center col-3"
+      className="card py-1 mx-3 my-2 text-center col-3"
       style={{ backgroundColor: `${color}` }}
     >
       <div>
@@ -69,17 +81,28 @@ function ByName({ pokemon }) {
         <h4>{pokemon.name}</h4>
       </div>
       <div className="card-body">
-        <div className="card-img">
-          <img
-            src={pokemon.sprites.other.dream_world.front_default}
-            width="130px"
-            height="130px"
-            alt={pokemon.name}
-          />
-        </div>
+        {pokemon.sprites.other.dream_world.front_default ? (
+          <div className="card-img">
+            <img
+              src={pokemon.sprites.other.dream_world.front_default}
+              width="130px"
+              height="130px"
+              alt={pokemon.name}
+            />
+          </div>
+        ) : (
+          <div className="card-img">
+            <img
+              src={pokemon.sprites.front_default}
+              width="130px"
+              height="130px"
+              alt={pokemon.name}
+            />
+          </div>
+        )}
         <div className="d-flex justify-content-center">
           <div
-            className="icon-type me-3"
+            className="icon-type me-1"
             style={{ background: `${colorsType}` }}
           >
             <img src={icon} alt="element" />
@@ -129,6 +152,7 @@ function ByName({ pokemon }) {
           </p>
         </div>
       </div>
+
       <Link
         className="btn"
         style={{ background: `${colorsType}`, color: "#fff" }}
@@ -138,6 +162,6 @@ function ByName({ pokemon }) {
       </Link>
     </div>
   );
-}
+};
 
-export default ByName;
+export default PokeCard;

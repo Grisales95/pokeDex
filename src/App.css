@@ -144,3 +144,22 @@
 .poke-api-logo img{
   width: 100%;
 }
+
+.container-id{
+  background: #2CB3E8;
+  height: 100vh;
+}
+
+.container-img{
+  text-align: center;
+  background: #fff;
+  width: 300px;
+  padding: 10px;
+  border-radius:10px
+}
+
+.container-type{
+  width: 300px;
+  border-radius: 15px;
+  background: #fff;
+}

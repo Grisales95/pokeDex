@@ -1,120 +1,83 @@
-import React from 'react'
-import { useState, useEffect} from "react"
-import axios from "axios"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const PokeDex = ({url}) => {
+import PokeCard from "./PokeCard";
+import SearchBox from "./SearchBox";
+import ByName from "./ByName";
 
-  const [pokemon, setPokemon] = useState("")
+const PokeDex = () => {
+  var page = 4;
 
-  useEffect(()=>{
+  const [pokemons, setPokemons] = useState([]);
 
-      const getPokemon = async () => {
-      const data = await axios(url);
-      setPokemon(data.data);
-      }
+  const [pokemonN, setPokemonN] = useState("");
 
-      getPokemon()
-  },[url])
-  
-  if(!pokemon){
-    return null
-  }
+  const [type, setType] = useState("");
 
+  const [name, setName] = useState("");
 
-  const colors = {
-    fairy: "#f6ccd5",
-    dark: "#b7aba3",
-    dragon: "#b79bfb",
-    ice: "#cbebeb",
-    psychic: "#fbabc3",
-    electric: "#fbe797",
-    grass: "#bbe3a7",
-    water: "#DEF3FD",
-    fire: "#f7bf97",
-    steel: "#dbdbe7",
-    ghost: "#a897e6",
-    bug: "#b7abcb",
-    rock: "#dbcf9b",
-    ground: "#efdfb3",
-    poison: "#cf9fcf",
-    flying: "#d3c7f7",
-    fighting: "#df9793",
-    normal: "#d3d3bb"
-}
+  const [total, setTotal] = useState("");
 
-  const colorsIcons = {
-    fairy:"#EE90E6",
-    dark:"#595761",
-    dragon:"#0C69C8",
-    ice:"#75D0C1",
-    psychic:"#FA8581",
-    electric:"#F2D94E",
-    grass:"#5FBD58",
-    water:"#539DDF",
-    fire:"#FBA54C",
-    steel:"#5695A3",
-    ghost:"#5F6DBC",
-    bug:"#92BC2C",
-    rock:"#C9BB8A",
-    ground:"#DA7C4D",
-    poison:"#B763CF",
-    flying:"#A1BBEC",
-    fighting:"#D3425F",
-    normal:"#A0A29F"
-  }
+  useEffect(() => {
+    setPokemons([]);
+    setPokemonN("");
 
-const color = colors[pokemon.types[0]?.type.name]
-const icon = `../icons/${pokemon.types[0]?.type.name}.svg`
-const icon2 = `../icons/${pokemon.types[1]?.type.name}.svg`
-const colorsType = colorsIcons[pokemon.types[0]?.type.name]
-const colorsType2 = colorsIcons[pokemon.types[1]?.type.name]
-
-const atk ="../icons/atk.png"
-const hp = "../icons/hp.png"
-const def = "../icons/def.png"
-const spd ="../icons/spd.png"
-  return (
-    <div className="card py-1 mx-3 my-2 text-center col-3" style={{ backgroundColor: `${color}` }}>
-      <div>
-          <p className="id-number">#{pokemon.id}</p>
-          <h4>{pokemon.name}</h4>
-      </div>
-      <div className="card-body">
-        {
-          pokemon.sprites.other.dream_world.front_default ?
-          <div className="card-img">
-           <img src={pokemon.sprites.other.dream_world.front_default} width="130px" height="130px" alt={pokemon.name}/> 
-          </div>
-          :
-          <div className="card-img">
-           <img src={pokemon.sprites.front_default} width="130px" height="130px" alt={pokemon.name}/> 
-          </div>
+    if (type) {
+      const getPokemonUrl = async () => {
+        try {
+          const getData = await axios(`https://pokeapi.co/api/v2/type/${type}`);
+          setPokemons(getData.data.pokemon.slice(0, 4));
+          setTotal(pokemons.length);
+        } catch (error) {
+          console.log(error);
         }
-        <div className="d-flex justify-content-center">
-            <div className="icon-type me-1" style={{background:`${colorsType}`}}>
-              <img src={icon} alt="element" />
-            </div>
-            {
-              pokemon.types[1] &&
-              <div className="icon-type" style={{background:`${colorsType2}`}}>
-              <img src={icon2} alt="element2"/>
-              </div>
-            }
+      };
+      getPokemonUrl();
+    }
+  }, [type]);
+
+  // const pages = Math.ceil(total / page);
+
+  console.log(total);
+
+  useEffect(() => {
+    setPokemons([]);
+    setPokemonN("");
+
+    if (name) {
+      const getPokemonByName = async () => {
+        try {
+          const getData = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${name}`
+          );
+          setPokemonN(getData.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getPokemonByName();
+    }
+  }, [name]);
+  return (
+    <div className="container-main">
+      <div className="container">
+        <div className="py-4 text-center">
+          <SearchBox handleSearch={setType} setName={setName} />
         </div>
-      </div>
-      <div className="row">
-        <div className="col-6">
-          <p><img src={hp} style={{width:"25px", height:"25px"}} alt="heart"/> {pokemon.stats[0].base_stat}</p>
-          <p><img src={atk} style={{width:"25px",  height:"25px"}} alt="sword" />{pokemon.stats[1].base_stat}</p>
-        </div>
-        <div className="col-6">
-          <p><img src={def} style={{width:"25px",  height:"25px"}} alt="shield"/> {pokemon.stats[2].base_stat}</p>
-          <p><img src={spd} style={{width:"30px",  height:"30px"}} alt="thunder"/> {pokemon.stats[3].base_stat}</p>
+        <div className="d-flex flex-wrap py-3 justify-content-center row">
+          <ByName pokemon={pokemonN} />
+          {pokemons ? (
+            pokemons.map((poke) => (
+              // cambiar nombre de PokeDex a PokeCard
+              <PokeCard url={poke.pokemon.url} key={poke.name} />
+            ))
+          ) : (
+            <h2 className="d-none">Pokemon</h2>
+          )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PokeDex
+export default PokeDex;
