@@ -81,9 +81,16 @@ const spd ="../icons/spd.png"
           <h4>{pokemon.name}</h4>
       </div>
       <div className="card-body">
-        <div className="card-img">
+        {
+          pokemon.sprites.other.dream_world.front_default ?
+          <div className="card-img">
            <img src={pokemon.sprites.other.dream_world.front_default} width="130px" height="130px" alt={pokemon.name}/> 
-        </div>
+          </div>
+          :
+          <div className="card-img">
+           <img src={pokemon.sprites.front_default} width="130px" height="130px" alt={pokemon.name}/> 
+          </div>
+        }
         <div className="d-flex justify-content-center">
             <div className="icon-type me-1" style={{background:`${colorsType}`}}>
               <img src={icon} alt="element" />

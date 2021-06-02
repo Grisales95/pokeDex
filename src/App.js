@@ -6,9 +6,11 @@ import SearchBox from  "./components/SearchBox"
 import ByName from "./components/ByName"
 import axios from "axios"
 import PokemonId from "./components/PokemonId"
-import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
 
 function App() {
+
+  var page = 4;
 
   const [pokemons, setPokemons] = useState("")
 
@@ -16,14 +18,7 @@ function App() {
 
   const [name, setName] = useState("")
 
-  const [data, setData] = useState("")
-
-  const [total,setTotal] = useState();
-  const [A,setA] = useState(0);
-  const [B, setB] = useState(4);
-
-
-
+ const [total, setTotal] = useState("")
 
   useEffect(() => {
      if(type){
@@ -32,7 +27,8 @@ function App() {
         try{
 
         const getData = await axios(`https://pokeapi.co/api/v2/type/${type}`)
-        setPokemons(getData.data.pokemon.slice(0,4));
+        setPokemons(getData.data.pokemon)
+        setTotal(pokemons.length)
     
   
       }catch(error){
@@ -45,17 +41,9 @@ function App() {
 
 }, [type])
 
-const handleNext = () => {
-  setA(A + 10);
-  setB(B + 10);
-};
+const pages = Math.ceil(total / page)
 
-const handlePrev = () => {
-  setA(A - 10);
-  setB(B - 10);
-};
-
-
+  console.log(total)
 
 const [pokemonN,setPokemonN] = useState("")
 
@@ -84,11 +72,6 @@ useEffect(()=>{
     <div className="App">
       <Router>
               <Switch>
-                <Route path="/login">
-                    <Login />
-                </Route>
-              </Switch>
-              <Switch>
                 <Route path="/pokeDex">
                   <div className="container-main">
                     <div className="container">
@@ -107,17 +90,12 @@ useEffect(()=>{
                     </div>
                   </div>
                   </div>
-                  <Link to path="/id">Go!</Link>
-                  <div className="d-flex justify-content-center my-3">
-                {A !== 0 && <button className = "btn btn-danger mx-2" onClick={handlePrev}>atras</button>}
-
-                {B <= total && (
-                    <button className = "btn btn-primary" onClick={handleNext}>siguiente</button>
-                )}
-            </div>
                 </Route>
-                <Route path="pokeDex/id">
+                <Route path="/pokeDex/:id" render={() => <PokemonId />}>
                   <PokemonId />
+                </Route>
+                <Route path="/">
+                    <Login />
                 </Route>
               </Switch>
             </Router>

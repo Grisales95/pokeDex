@@ -14,6 +14,7 @@ const reset = () => {
   setName(valueName)
   setValueName("")
   handleSearch("")
+  setValueType(false)
 }
 
   const pokeApiLogo = "../icons/pokeapi.png"
