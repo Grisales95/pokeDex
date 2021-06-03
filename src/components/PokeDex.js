@@ -6,8 +6,6 @@ import SearchBox from "./SearchBox";
 import ByName from "./ByName";
 
 const PokeDex = () => {
-  var page = 4;
-
   const [pokemons, setPokemons] = useState([]);
 
   const [pokemonN, setPokemonN] = useState("");
@@ -15,8 +13,6 @@ const PokeDex = () => {
   const [type, setType] = useState("");
 
   const [name, setName] = useState("");
-
-  const [total, setTotal] = useState("");
 
   useEffect(() => {
     setPokemons([]);
@@ -27,7 +23,6 @@ const PokeDex = () => {
         try {
           const getData = await axios(`https://pokeapi.co/api/v2/type/${type}`);
           setPokemons(getData.data.pokemon.slice(0, 4));
-          setTotal(pokemons.length);
         } catch (error) {
           console.log(error);
         }
@@ -36,14 +31,7 @@ const PokeDex = () => {
     }
   }, [type]);
 
-  // const pages = Math.ceil(total / page);
-
-  console.log(total);
-
   useEffect(() => {
-    setPokemons([]);
-    setPokemonN("");
-
     if (name) {
       const getPokemonByName = async () => {
         try {
@@ -57,7 +45,10 @@ const PokeDex = () => {
       };
       getPokemonByName();
     }
+    setPokemons([]);
+    setPokemonN("");
   }, [name]);
+
   return (
     <div className="container-main">
       <div className="container">

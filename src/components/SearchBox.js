@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 
 const SearchBox = ({ handleSearch, setName }) => {
-  const [valueType, setValueType] = useState("fire");
-  const [valueName, setValueName] = useState();
+  const [valueType, setValueType] = useState("");
+  const [valueName, setValueName] = useState("");
 
   const prevent = (e) => {
     e.preventDefault();
@@ -16,6 +16,7 @@ const SearchBox = ({ handleSearch, setName }) => {
 
   const resetType = () => {
     handleSearch(valueType);
+    setValueType("");
   };
 
   const pokeApiLogo = "../icons/pokeapi.png";
@@ -34,6 +35,7 @@ const SearchBox = ({ handleSearch, setName }) => {
         onChange={(e) => setValueType(e.target.value)}
         value={valueType}
       >
+        <option value=""></option>
         <option value="fire">Fire</option>
         <option value="water">Water</option>
         <option value="normal">Normal</option>

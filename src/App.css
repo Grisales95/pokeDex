@@ -312,3 +312,24 @@
 .about p {
   font-weight: 600;
 }
+
+.location-container p{
+  font-weight: 600;
+  text-align: center;
+}
+
+.location-container .location-span{
+  border-radius: 8px;
+  padding: 5px 8px;
+  margin: 2px 2px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.cont-abilities{
+  border-radius: 8px;
+  color: #fff;
+  padding: 5px 0;
+}
+
+

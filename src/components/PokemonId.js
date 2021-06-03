@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import PokemonId2 from "./PokemonId2"
+import PokemonId2 from "./PokemonId2";
 
 const PokemonId = () => {
   const [pokemonN, setPokemonN] = useState("");
@@ -15,10 +15,10 @@ const PokemonId = () => {
     };
 
     fetchFunc();
-  }, []);
+  }, [id]);
 
-  if(!pokemonN){
-    return null
+  if (!pokemonN) {
+    return null;
   }
 
   const colorsIcons = {
@@ -45,50 +45,78 @@ const PokemonId = () => {
   const colorsType = colorsIcons[pokemonN.types[0]?.type.name];
   const colorsType2 = colorsIcons[pokemonN.types[1]?.type.name];
 
-
   return (
-    <div className="container-id" style={{background:`${colorsType}`}}>
-        <div className="ms-5 py-4">
-          <div className="title-id ms-5" >
+    <div className="container-id" style={{ background: `${colorsType}` }}>
+      <div className="ms-5 py-4">
+        <div className="title-id ms-5">
           <h1>
-            #{pokemonN.id} - {pokemonN.name} <img src={pokemonN.sprites?.front_default}/>
+            #{pokemonN.id} - {pokemonN.name}{" "}
+            <img src={pokemonN.sprites?.front_default} alt={pokemonN.name} />
           </h1>
-          </div>
-          <div className="row ms-5">
-             <div className="card-id col-4">
-              <div className="container-img my-4">
-                <img
-                  src={pokemonN.sprites?.other.dream_world.front_default}
-                  alt={pokemonN.name}
-                />
+        </div>
+        <div className="row ms-5">
+          <div className="card-id col-4">
+            <div className="container-img my-4">
+              <img
+                src={pokemonN.sprites?.other.dream_world.front_default}
+                alt={pokemonN.name}
+              />
+            </div>
+            <div className="container-type my-4">
+              <span>Type: </span>
+              <div className="type-id">
+                <div
+                  className="span-type ms-4"
+                  style={{ background: `${colorsType}` }}
+                >
+                  {pokemonN.types[0]?.type.name}
+                </div>
+                <div
+                  className="span-type ms-2"
+                  style={{ background: `${colorsType2}` }}
+                >
+                  {pokemonN.types[1]?.type.name}
+                </div>
               </div>
-              <div className="container-type my-4">  
-                <span>Type: </span>
-                <div className="type-id">
-                <div className="span-type ms-4" style={{background:`${colorsType}`}}>{pokemonN.types[0]?.type.name}</div>  
-                <div className="span-type ms-2" style={{background:`${colorsType2}`}}>{pokemonN.types[1]?.type.name}</div>
+            </div>
+            <div className="details">
+              <div className="details-id">
+                <span>Height: </span>
+                {pokemonN.height}
               </div>
+              <div className="details-id">
+                <span>Weigth: </span>
+                {pokemonN.weight}
               </div>
-              <div className="details">
-                <div className="details-id"><span>Height: </span>{pokemonN.height}</div>
-                <div className="details-id"><span>Weigth: </span>{pokemonN.weight}</div>
-              </div>
-              <div className="container-atributes my-4">
-                <p>Attributes</p>
-                <div className="atributes">
-                  <div className= "atri  me-2 mb-2 bg-color-hp">HP: {pokemonN.stats[0]?.base_stat}</div>
-                  <div className= "atri  me-2 mb-2 bg-color-atk">ATK: {pokemonN.stats[1]?.base_stat}</div>
-                  <div className= "atri  me-2 mb-2 bg-color-def">DEF: {pokemonN.stats[2]?.base_stat}</div>
-                  <div className= "atri  me-2 mb-2 bg-color-spd">SPD: {pokemonN.stats[3]?.base_stat}</div>
-                  <div className= "atri  me-2 mb-2 bg-color-sp-a">SP.ATK: {pokemonN.stats[4]?.base_stat}</div>
-                  <div className= "atri  me-2 mb-2 bg-color-sp-d">SP.DEF: {pokemonN.stats[5]?.base_stat}</div>
+            </div>
+            <div className="container-atributes my-4">
+              <p>Attributes</p>
+              <div className="atributes">
+                <div className="atri  me-2 mb-2 bg-color-hp">
+                  HP: {pokemonN.stats[0]?.base_stat}
+                </div>
+                <div className="atri  me-2 mb-2 bg-color-atk">
+                  ATK: {pokemonN.stats[1]?.base_stat}
+                </div>
+                <div className="atri  me-2 mb-2 bg-color-def">
+                  DEF: {pokemonN.stats[2]?.base_stat}
+                </div>
+                <div className="atri  me-2 mb-2 bg-color-spd">
+                  SPD: {pokemonN.stats[3]?.base_stat}
+                </div>
+                <div className="atri  me-2 mb-2 bg-color-sp-a">
+                  SP.ATK: {pokemonN.stats[4]?.base_stat}
+                </div>
+                <div className="atri  me-2 mb-2 bg-color-sp-d">
+                  SP.DEF: {pokemonN.stats[5]?.base_stat}
+                </div>
               </div>
             </div>
           </div>
           <div className="col-8">
-            <PokemonId2 pokemonN={pokemonN} id={id}/>
+            <PokemonId2 pokemonN={pokemonN} id={id} colorsType={colorsType} />
           </div>
-        </div>      
+        </div>
       </div>
     </div>
   );
