@@ -47,15 +47,15 @@ const PokemonId = () => {
 
   return (
     <div className="container-id" style={{ background: `${colorsType}` }}>
-      <div className="ms-5 py-4">
-        <div className="title-id ms-5">
+      <div className=" py-4">
+        <div className="title-id">
           <h1>
             #{pokemonN.id} - {pokemonN.name}{" "}
             <img src={pokemonN.sprites?.front_default} alt={pokemonN.name} />
           </h1>
         </div>
-        <div className="row ms-5">
-          <div className="card-id col-4">
+        <div className="row d-flex  justify-content-center">
+          <div className="card-id col-5">
             <div className="container-img my-4">
               <img
                 src={pokemonN.sprites?.other.dream_world.front_default}
@@ -113,7 +113,7 @@ const PokemonId = () => {
               </div>
             </div>
           </div>
-          <div className="col-8">
+          <div className="col-7">
             <PokemonId2 pokemonN={pokemonN} id={id} colorsType={colorsType} />
           </div>
         </div>

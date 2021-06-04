@@ -61,7 +61,7 @@ function ByName({ pokemon }) {
 
   return (
     <div
-      className="card py-1 me-3 my-2 text-center col-3"
+      className="card py-1  my-2 text-center col-3 pb-3"
       style={{ backgroundColor: `${color}` }}
     >
       <div>

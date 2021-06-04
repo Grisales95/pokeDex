@@ -73,7 +73,7 @@ const PokeCard = ({ url }) => {
   const spd = "../icons/spd.png";
   return (
     <div
-      className="card py-1 mx-3 my-2 text-center col-3"
+      className="card py-1 mx-3 my-2 text-center col-3 pb-3"
       style={{ backgroundColor: `${color}` }}
     >
       <div>
