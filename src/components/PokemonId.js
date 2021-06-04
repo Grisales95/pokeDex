@@ -45,6 +45,8 @@ const PokemonId = () => {
   const colorsType = colorsIcons[pokemonN.types[0]?.type.name];
   const colorsType2 = colorsIcons[pokemonN.types[1]?.type.name];
 
+  console.log(id);
+
   return (
     <div className="container-id" style={{ background: `${colorsType}` }}>
       <div className=" py-4">
