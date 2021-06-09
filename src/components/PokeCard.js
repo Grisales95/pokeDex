@@ -61,15 +61,13 @@ const PokeCard = ({ url, colorBg }) => {
     normal: "#A0A29F",
   };
 
- 
-
   const color = colors[pokemon.types[0]?.type.name];
   const icon = `../icons/${pokemon.types[0]?.type.name}.svg`;
   const icon2 = `../icons/${pokemon.types[1]?.type.name}.svg`;
   const colorsType = colorsIcons[pokemon.types[0]?.type.name];
   const colorsType2 = colorsIcons[pokemon.types[1]?.type.name];
 
-  colorBg(colorsType)
+  colorBg(colorsType);
 
   const atk = "../icons/atk.png";
   const hp = "../icons/hp.png";
@@ -77,7 +75,7 @@ const PokeCard = ({ url, colorBg }) => {
   const spd = "../icons/spd.png";
   return (
     <div
-      className="card py-1 mx-3 my-2 text-center col-3 pb-3"
+      className="card py-2 mx-3 my-2 text-center col-3 pb-3"
       style={{ backgroundColor: `${color}` }}
     >
       <div>
@@ -102,7 +100,7 @@ const PokeCard = ({ url, colorBg }) => {
               height="130px"
               alt={pokemon.name}
             />
-          </div>            
+          </div>
         )}
         <div className="d-flex justify-content-center">
           <div

@@ -419,6 +419,10 @@ nav .btn{
 }
 
 @media (max-width:520px){
+  .card{
+    width: 80%;
+  }
+
   .row{
     padding-bottom: 10px;
   }
