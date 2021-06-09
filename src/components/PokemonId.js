@@ -18,7 +18,7 @@ const PokemonId = () => {
   }, [id]);
 
   if (!pokemonN) {
-    return null;
+    return <div className="loading">Loading...</div>;
   }
 
   const colorsIcons = {

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const PokeCard = ({ url }) => {
+const PokeCard = ({ url, colorBg }) => {
   const [pokemon, setPokemon] = useState("");
 
   useEffect(() => {
@@ -61,11 +61,15 @@ const PokeCard = ({ url }) => {
     normal: "#A0A29F",
   };
 
+ 
+
   const color = colors[pokemon.types[0]?.type.name];
   const icon = `../icons/${pokemon.types[0]?.type.name}.svg`;
   const icon2 = `../icons/${pokemon.types[1]?.type.name}.svg`;
   const colorsType = colorsIcons[pokemon.types[0]?.type.name];
   const colorsType2 = colorsIcons[pokemon.types[1]?.type.name];
+
+  colorBg(colorsType)
 
   const atk = "../icons/atk.png";
   const hp = "../icons/hp.png";
@@ -98,7 +102,7 @@ const PokeCard = ({ url }) => {
               height="130px"
               alt={pokemon.name}
             />
-          </div>
+          </div>            
         )}
         <div className="d-flex justify-content-center">
           <div

@@ -439,3 +439,16 @@
     margin-top: 150px;
   }
 }
+
+.loading{
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 20px;}
+
+
+nav .btn{
+  color: #fff;
+  font-weight: 600;
+}

@@ -16,7 +16,7 @@ const PokemonId2 = ({ pokemonN, id, colorsType }) => {
   }, [id]);
 
   if (!species) {
-    return null;
+    return <div className="loading">Loading...</div>;
   }
 
   return (
