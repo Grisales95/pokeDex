@@ -327,6 +327,26 @@
   padding: 5px 0;
 }
 
+.pagination{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.loading{
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 20px;}
+
+
+nav .btn{
+  color: #fff;
+  font-weight: 600;
+  margin: 5px 0;
+}
+
 
 @media (max-width:1010px){
 
@@ -438,17 +458,12 @@
     width: 80%;
     margin-top: 150px;
   }
+
+  nav .btn{
+    padding: 2px 5px;
+    font-size: 0.9rem;
+  }
+  
 }
 
-.loading{
-  width: 100%;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-top: 20px;}
 
-
-nav .btn{
-  color: #fff;
-  font-weight: 600;
-}

@@ -66,7 +66,7 @@ const SearchBox = ({ handleSearch, setName }) => {
           value={valueName}
           className="form-control mb-2"
           id="name"
-          onChange={(e) => setValueName(e.target.value)}
+          onChange={(e) => setValueName(e.target.value.toLowerCase())}
         />
         <div className="d-grid gap-2">
           <button className="btn btn-primary" onClick={reset}>

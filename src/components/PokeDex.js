@@ -4,7 +4,7 @@ import axios from "axios";
 import PokeCard from "./PokeCard";
 import SearchBox from "./SearchBox";
 import ByName from "./ByName";
-import Pagination from "./Pagination"
+import Pagination from "./Pagination";
 
 const PokeDex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -17,12 +17,13 @@ const PokeDex = () => {
 
   const [colorTypes, setColorTypes] = useState();
 
-  const [currentPage, setCurrentPage] = useState(1)
-  let [perPage] = useState(4)
+  const [currentPage, setCurrentPage] = useState(1);
+  let [perPage] = useState(4);
 
   useEffect(() => {
     setPokemons([]);
     setPokemonN("");
+    setCurrentPage(1);
 
     if (type) {
       const getPokemonUrl = async () => {
@@ -57,16 +58,14 @@ const PokeDex = () => {
 
   const indexOfLastPoke = currentPage * perPage;
   const indexOfFirstPoke = indexOfLastPoke - perPage;
-  const currentPoke = pokemons.slice(indexOfFirstPoke, indexOfLastPoke)
+  const currentPoke = pokemons.slice(indexOfFirstPoke, indexOfLastPoke);
 
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber)
-
+    setCurrentPage(pageNumber);
+  };
+  if (pokemons.length >= 100) {
+    perPage = 8;
   }
-  if(pokemons.length >= 100){
-    perPage = 8
-}
-  
 
   return (
     <div className="container-main">
@@ -78,13 +77,22 @@ const PokeDex = () => {
           <ByName pokemon={pokemonN} />
           {currentPoke ? (
             currentPoke.map((poke) => (
-              <PokeCard url={poke.pokemon.url} key={poke.name} colorBg={setColorTypes}/>
+              <PokeCard
+                url={poke.pokemon.url}
+                key={poke.name}
+                colorBg={setColorTypes}
+              />
             ))
           ) : (
             <h2 className="d-none">Pokemon</h2>
           )}
         </div>
-        <Pagination  perPage={perPage} totalPokemons={pokemons.length} paginate={paginate} color={colorTypes}/>
+        <Pagination
+          perPage={perPage}
+          totalPokemons={pokemons.length}
+          paginate={paginate}
+          color={colorTypes}
+        />
       </div>
     </div>
   );
