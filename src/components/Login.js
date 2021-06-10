@@ -6,16 +6,18 @@ import { auth } from "../firebase"
 function Login() {
   const [email, setEmail] = useState("")
   const [pass, setPass] = useState("")
+  const [msgError, setMsgError] = useState("")
 
   const RegisterUser = (e) => {
     e.preventDefault();
-    try{
-      auth.createUserWithEmailAndPassword(email, pass)
-      alert("usuario registrado")
-    } catch(error){
-        console.log(error)
-    }
-  };
+    auth.createUserWithEmailAndPassword(email, pass)
+      .then(r => alert("Usuario registrado"))
+      .catch(e => {
+        if(e.code === "auth/weak-password"){
+          setMsgError("la contraseña debe de tener como minimo 6 caracteres")
+        }
+      })
+  }
 
   return (
     <div className="container-login">
@@ -44,6 +46,10 @@ function Login() {
             Go
           </Link>
         </form>
+        {
+          msgError && 
+          <div className="alert alert-danger" role="alert">{msgError}</div>
+        }
       </div>
     </div>
   );
