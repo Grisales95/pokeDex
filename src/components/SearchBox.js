@@ -1,9 +1,28 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect} from "react";
+import { auth } from "../firebase";
+import { useHistory } from "react-router";
 
 const SearchBox = ({ handleSearch, setName }) => {
   const [valueType, setValueType] = useState("");
   const [valueName, setValueName] = useState("");
+  const [user, setUser] = useState(null)
+  const history = useHistory()
+
+
+  useEffect(() => {
+    auth.onAuthStateChanged ((user)=>{
+      if(user){
+        setUser(user.email)
+      }
+    })
+  },[])
+
+  const singIn = () =>{
+    auth.signOut()
+    setUser(null)
+    history.push("/")
+  }
 
   const prevent = (e) => {
     e.preventDefault();
@@ -74,6 +93,10 @@ const SearchBox = ({ handleSearch, setName }) => {
           </button>
         </div>
       </form>
+      {
+        user && 
+        <button className="btn btn-info my-3" onClick={singIn}>Cerrar sesion</button>
+      }
     </div>
   );
 };
